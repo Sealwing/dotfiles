@@ -14,6 +14,8 @@ configs.setup({
         "yaml",
         "json",
         "dockerfile",
+        "elixir",
+        "clojure",
     },
     sync_install = false,
     auto_install = true,

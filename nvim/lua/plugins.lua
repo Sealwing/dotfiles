@@ -15,13 +15,24 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     spec={
         -- UI
+--        {
+--            "gbprod/nord.nvim",
+--            lazy = false,
+--            priority = 1000,
+--            config = function()
+--                require("nord").setup({})
+--                vim.cmd.colorscheme("nord")
+--            end,
+--        },
         {
-            "gbprod/nord.nvim",
-            lazy = false,
+            "catppuccin/nvim",
+            name = "catppuccin",
             priority = 1000,
             config = function()
-                require("nord").setup({})
-                vim.cmd.colorscheme("nord")
+                require("catppuccin").setup({
+                    flavor = "macchiato"
+                })
+                vim.cmd.colorscheme("catppuccin")
             end,
         },
         {
@@ -82,7 +93,13 @@ require("lazy").setup({
             "nvim-telescope/telescope.nvim",
             tag = "0.1.8",
             dependencies = {
-                "nvim-lua/plenary.nvim"
+                {
+                    "nvim-lua/plenary.nvim"
+                },
+                {
+                    "nvim-telescope/telescope-live-grep-args.nvim",
+                    version = "^1.0.0",
+                },
             },
             config = function()
                 require("config.telescope")
@@ -138,6 +155,11 @@ require("lazy").setup({
             config = function()
                 require("config.dap")
             end,
+        },
+        -- Languages
+        -- # Clojure #
+        {
+            "Olical/conjure"
         },
     },
 })
