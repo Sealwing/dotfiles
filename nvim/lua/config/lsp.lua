@@ -21,9 +21,9 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
 
-    vim.keymap.set('n', '<leader>ll', vim.lsp.buf.hover, bufopts)
-    vim.keymap.set('n', '<leader>lk', vim.lsp.buf.signature_help, bufopts)
-    vim.keymap.set('n', '<leader>lj', vim.lsp.buf.type_definition, bufopts)
+    vim.keymap.set('n', '<leader>lk', vim.lsp.buf.hover, bufopts)
+    vim.keymap.set('n', '<leader>lj', vim.lsp.buf.signature_help, bufopts)
+    vim.keymap.set('n', '<leader>lJ', vim.lsp.buf.type_definition, bufopts)
 
     vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
     vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)

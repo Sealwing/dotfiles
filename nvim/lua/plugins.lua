@@ -159,7 +159,17 @@ require("lazy").setup({
         -- Languages
         -- # Clojure #
         {
-            "Olical/conjure"
+            "Olical/conjure",
+            ft = { "clojure" },
+        },
+        {
+            "tpope/vim-dispatch",
+        },
+        {
+            "clojure-vim/vim-jack-in",
+        },
+        {
+            "radenling/vim-dispatch-neovim",
         },
     },
 })
