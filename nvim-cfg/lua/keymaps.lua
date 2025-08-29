@@ -13,10 +13,10 @@ vim.keymap.set('n', '<C-l>', '<C-w>l', opts)
 
 --- Resize With Arrows
 
-vim.keymap.set('n', '<C-Up>', ':resize -2<CR>', opts)
-vim.keymap.set('n', '<C-Down>', ':resize +2<CR>', opts)
-vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>', opts)
-vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', opts)
+vim.keymap.set('n', '<C-M-Up>', ':resize -2<CR>', opts)
+vim.keymap.set('n', '<C-M-Down>', ':resize +2<CR>', opts)
+vim.keymap.set('n', '<C-M-Left>', ':vertical resize -2<CR>', opts)
+vim.keymap.set('n', '<C-M-Right>', ':vertical resize +2<CR>', opts)
 
 -- Call plugins
 vim.keymap.set('n', '<leader>G', '<cmd>Neogit<CR>', opts)

@@ -4,9 +4,6 @@ require("workspaces").setup({
         remove = {},
         rename = {},
         open_pre = {},
-        open = {
-            "Neotree",
---            "ExrcLoad",
-        },
+        open = {},
     },
 })

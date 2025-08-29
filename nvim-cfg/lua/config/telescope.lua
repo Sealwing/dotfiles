@@ -15,5 +15,4 @@ ts.load_extension("live_grep_args")
 
 local f = require("telescope.builtin")
 vim.keymap.set('n', '<leader>ff', f.find_files, {desc='Telescope find files' })
---vim.keymap.set('n', '<leader>fa', f.live_grep, {desc='Telescope live grep'})
 vim.keymap.set('n', '<leader>fa', ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", {desc='Telescope live grep'})
