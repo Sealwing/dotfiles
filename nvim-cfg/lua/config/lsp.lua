@@ -4,7 +4,7 @@ c = require("cmp_nvim_lsp").default_capabilities(c)
 require("mason").setup()
 
 require("mason-lspconfig").setup({
-    ensure_installed = {"pyright"},
+    ensure_installed = {"pyright", "gopls"},
 })
 
 
@@ -16,24 +16,24 @@ local on_attach = function(client, bufnr)
 
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
 
-    vim.keymap.set('n', '<leader>lk', vim.lsp.buf.hover, bufopts)
+    vim.keymap.set('n', '<leader>ll', vim.lsp.buf.hover, bufopts)
     vim.keymap.set('n', '<leader>lj', vim.lsp.buf.signature_help, bufopts)
-    vim.keymap.set('n', '<leader>lJ', vim.lsp.buf.type_definition, bufopts)
+    --vim.keymap.set('n', '<leader>lJ', vim.lsp.buf.type_definition, bufopts)
 
-    vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-    vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-    vim.keymap.set('n', '<leader>wl', function()
-        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, bufopts)
+    --vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+    --vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+    --vim.keymap.set('n', '<leader>wl', function()
+    --    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    --end, bufopts)
 
-    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
-    vim.keymap.set("n", "<leader>fmt", function()
+    vim.keymap.set('n', '<leader>lc', vim.lsp.buf.code_action, bufopts)
+    vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, bufopts)
+    vim.keymap.set("n", "<leader>lf", function()
         vim.lsp.buf.format({ async = true })
     end, bufopts)
     vim.keymap.set({'n', 'v'}, '<leader>hl', vim.lsp.buf.document_highlight, opts)
@@ -54,6 +54,16 @@ require("lspconfig").pyright.setup {
     end
 }
 
+require("lspconfig").gopls.setup {
+    capabilities = c,
+    on_attach = on_attach,
+    analyses =  {
+        unusedparams = true,
+    },
+    staticcheck = true,
+    gofumpt = true,
+}
+
 local opts = { noremap = true, silent = true }
 
 local next_diagnostic = function()
@@ -68,6 +78,3 @@ vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', prev_diagnostic, opts)
 vim.keymap.set('n', ']d', next_diagnostic, opts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
-
-
-

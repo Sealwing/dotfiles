@@ -13,15 +13,20 @@ vim.keymap.set('n', '<C-l>', '<C-w>l', opts)
 
 --- Resize With Arrows
 
-vim.keymap.set('n', '<C-M-Up>', ':resize -2<CR>', opts)
-vim.keymap.set('n', '<C-M-Down>', ':resize +2<CR>', opts)
-vim.keymap.set('n', '<C-M-Left>', ':vertical resize -2<CR>', opts)
-vim.keymap.set('n', '<C-M-Right>', ':vertical resize +2<CR>', opts)
+vim.keymap.set('n', '<C-SUp>', ':resize -2<CR>', opts)
+vim.keymap.set('n', '<C-S-Down>', ':resize +3<CR>', opts)
+vim.keymap.set('n', '<C-S-Left>', ':vertical resize -2<CR>', opts)
+vim.keymap.set('n', '<C-S-Right>', ':vertical resize +2<CR>', opts)
 
--- Call plugins
+--- Call Plugins
 vim.keymap.set('n', '<leader>G', '<cmd>Neogit<CR>', opts)
 vim.keymap.set('n', '<leader>N', '<cmd>Neotree<CR>', opts)
 
+--- Work With QuickFix List
+vim.keymap.set('n', '<leader>qo', ':copen<CR>', opts) -- open
+vim.keymap.set('n', '<leader>qc', ':cclose<CR>', opts) -- close
+vim.keymap.set('n', '<leader>qn', ':cnext!<CR>', opts) -- next
+vim.keymap.set('n', '<leader>qp', ':cprevious!<CR>', opts) -- previous
 
 --- VISUAL MODE ---
 

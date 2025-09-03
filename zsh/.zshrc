@@ -9,7 +9,7 @@ export NVM_DIR="$HOME/.nvm"
 
 # THEME
 #
-ZSH_THEME="random"
+ZSH_THEME="wezm"
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 # 
 # Uncomment the following line if you want to change the command execution time
