@@ -73,11 +73,6 @@ require("lazy").setup({
                 require("config.neotree")
             end,
         },
-        { 
-            -- call .nvim.lua per project
-            'jedrzejboczar/exrc.nvim',
-            config = true,
-        },
         -- GIT
         {
             "NeogitOrg/neogit",
@@ -146,31 +141,21 @@ require("lazy").setup({
                 require("config.aerial")
             end,
         },
-        -- Debug
-        {
-            "mfussenegger/nvim-dap",
-        },
-        {
-            "mfussenegger/nvim-dap-python",
-            config = function()
-                require("config.dap")
-            end,
-        },
         -- Languages
         -- # Clojure #
-        {
-            "Olical/conjure",
-            ft = { "clojure" },
-        },
-        {
-            "tpope/vim-dispatch",
-        },
-        {
-            "clojure-vim/vim-jack-in",
-        },
-        {
-            "radenling/vim-dispatch-neovim",
-        },
+        --{
+        --    "Olical/conjure",
+        --    ft = { "clojure" },
+        --},
+        --{
+        --    "tpope/vim-dispatch",
+        --},
+        --{
+        --    "clojure-vim/vim-jack-in",
+        --},
+        --{
+        --    "radenling/vim-dispatch-neovim",
+        --},
     },
 })
 
