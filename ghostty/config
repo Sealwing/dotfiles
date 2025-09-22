@@ -44,7 +44,8 @@
 
 # theme
 #theme = nord
-theme = catppuccin-mocha
+theme = "Catppuccin Mocha"
+#theme = "Catppuccin Frappe"
 
 # font
 font-family = "Lilex Nerd Font Mono"
