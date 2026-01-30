@@ -1,0 +1,11 @@
+# open ghostty:
+alt + shift - p : open -a 'Ghostty'
+
+# open browser:
+alt + shift - o : open -a 'Zen'
+
+# open pycharm:
+alt + shift - x : open -a 'PyCharm'
+
+# open mattermost:
+alt + shift - m : open -a 'Mattermost'

@@ -21,6 +21,7 @@ GHOSTTY_SOURCE="$DOTFILES_DIR/ghostty/config"
 NEOVIM_SOURCE="$DOTFILES_DIR/nvim-cfg"
 ZSH_SOURCE="$DOTFILES_DIR/zsh/.zshrc"
 TMUX_SOURCE="$DOTFILES_DIR/tmux/.tmux.conf"
+SKHD_SOURCE="$DOTFILES_DIR/skhd"
 
 link_config () {
     local NAME=$1
@@ -42,3 +43,4 @@ link_config ghostty "$GHOSTTY_SOURCE" "$GHOSTTY_CONFIG"
 link_config neovim "$NEOVIM_SOURCE" "$HOME/.config/nvim"
 link_config zsh "$ZSH_SOURCE" "$HOME/.zshrc"
 link_config tmux "$TMUX_SOURCE" "$HOME/.tmux.conf" 
+link_config skhd "$SKHD_SOURCE" "$HOME/.config/skhd" 

@@ -52,7 +52,7 @@ font-family = "Lilex Nerd Font Mono"
 font-size = 16
 
 # window
-fullscreen = true
+fullscreen = false
 #window-padding-x = 0
 #window-padding-y = 0
 #macos-titlebar-style = hidden
