@@ -5,7 +5,10 @@ alt + shift - p : open -a 'Ghostty'
 alt + shift - o : open -a 'Zen'
 
 # open pycharm:
-alt + shift - x : open -a 'PyCharm'
+alt + shift - x : open -a 'PyCharm CE'
+
+# open pycharm:
+alt + shift - z : open -a 'Codex'
 
 # open mattermost:
 alt + shift - m : open -a 'Mattermost'
