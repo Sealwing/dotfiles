@@ -1,4 +1,4 @@
-# ~/.codex/AGENTS.md
+# AGENTS.md
 
 ## Working agreements
 
@@ -17,3 +17,8 @@
 - After analysis, stop and wait for my explicit approval message: "implement option X".
 - If my wording is ambiguous (e.g. "let's think", "how to fix"), treat it as analysis-only.
 - Before any write action, ask a confirmation question.
+- Run exactly the command(s) requested — no extra prep or verification steps
+  (clearing __pycache__, ad-hoc syntax/AST checks, compileall, etc.) unless a
+  command actually fails and you're diagnosing why it failed.
+- Trust the project's own tooling (make pretty/lint, test runner) to handle
+  stale caches and catch syntax errors. Don't duplicate what it already checks.

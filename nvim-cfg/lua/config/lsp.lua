@@ -40,7 +40,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set({'n', 'v'}, '<leader>hu', vim.lsp.buf.clear_references, opts)
 end
 
-require("lspconfig").pyright.setup {
+vim.lsp.config( "pyright", {
     capabilities = c,
     on_attach = on_attach,
     before_init = function(params, config)
@@ -52,9 +52,11 @@ require("lspconfig").pyright.setup {
             config.settings.python.pythonPath = tostring(venv:joinpath("Scripts", "python.exe"))
         end
     end
-}
+})
 
-require("lspconfig").gopls.setup {
+vim.lsp.enable("pyright") 
+
+vim.lsp.config( "gopls", {
     capabilities = c,
     on_attach = on_attach,
     analyses =  {
@@ -62,7 +64,9 @@ require("lspconfig").gopls.setup {
     },
     staticcheck = true,
     gofumpt = true,
-}
+})
+
+vim.lsp.enable("gopls") 
 
 local opts = { noremap = true, silent = true }
 

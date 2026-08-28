@@ -1,7 +1,7 @@
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-export PATH=/Users/aer/.local/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
+export PATH=/Users/aer/.venv-vllm-metal/bin:/Users/aer/.local/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -67,3 +67,9 @@ else
   export EDITOR='nvim'
 fi
 
+
+# Qwen Code PATH block begin
+export PATH=$HOME'/.local/bin':$PATH
+# Qwen Code PATH block end
+
+source $HOME/.env
