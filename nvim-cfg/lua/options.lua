@@ -24,6 +24,11 @@ vim.opt.relativenumber = true
 vim.opt.cursorline = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
+vim.opt.scrolloff = 10
+vim.opt.sidescrolloff = 8
+vim.opt.termguicolors = true
+vim.opt.showmatch = true
+vim.opt.matchtime = 2
 
 -- Searching
 vim.opt.incsearch = true
