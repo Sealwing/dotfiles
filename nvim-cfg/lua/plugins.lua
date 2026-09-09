@@ -507,8 +507,11 @@ do
     })
 
     require('mason').setup({})
+    -- NOTE: pyright is deliberately absent. It is resolved per project (see the
+    -- pyright block below), so a mason-managed copy would only ever be dead
+    -- weight -- and mason pins whatever version it first installed.
     require('mason-lspconfig').setup({
-        ensure_installed = { 'pyright', 'gopls' },
+        ensure_installed = { 'gopls' },
         automatic_enable = false,
     })
 
@@ -541,11 +544,74 @@ do
     -- blink.cmp advertises the completion capabilities it supports.
     local capabilities = require('blink.cmp').get_lsp_capabilities()
 
+    -- [[ pyright resolution ]]
+    --
+    -- Prefer the project's own pyright, then a global install. Mason's copy is
+    -- skipped on purpose: mason never updates a package once installed, and the
+    -- version it pinned (1.1.391) emits `annotationId` on rename edits without
+    -- the required `changeAnnotations` map, which Neovim 0.12 rejects with
+    -- "change_annotations must be provided for annotated text edits".
+    -- Fixed upstream by 1.1.407.
+    local mason_bin = vim.fs.joinpath(vim.fn.stdpath('data'), 'mason', 'bin')
+
+    ---The project's own pyright, if the virtualenv ships one.
+    ---@param root string?
+    ---@return string?
+    local function project_pyright(root)
+        if not root then
+            return nil
+        end
+        local candidate = vim.fs.joinpath(root, '.venv', 'bin', 'pyright-langserver')
+        if vim.fn.executable(candidate) == 1 then
+            return candidate
+        end
+        -- Also look upward, for a package nested inside a larger repository.
+        local venv = vim.fs.find('.venv', { upward = true, path = root, type = 'directory' })[1]
+        if venv then
+            candidate = vim.fs.joinpath(venv, 'bin', 'pyright-langserver')
+            if vim.fn.executable(candidate) == 1 then
+                return candidate
+            end
+        end
+        return nil
+    end
+
+    ---The first pyright on PATH that is not mason's.
+    ---@return string?
+    local function global_pyright()
+        local sep = vim.fn.has('win32') == 1 and ';' or ':'
+        for dir in vim.gsplit(vim.env.PATH or '', sep, { plain = true }) do
+            if dir ~= '' and vim.fs.normalize(dir) ~= vim.fs.normalize(mason_bin) then
+                local candidate = vim.fs.joinpath(dir, 'pyright-langserver')
+                if vim.fn.executable(candidate) == 1 then
+                    return candidate
+                end
+            end
+        end
+        return nil
+    end
+
     vim.lsp.config('pyright', {
         capabilities = capabilities,
         settings = {
             python = {},
         },
+        -- `cmd` as a function receives the resolved config, so the binary can be
+        -- chosen per project rather than once per session. See `:help vim.lsp.ClientConfig`.
+        cmd = function(dispatchers, config)
+            local bin = project_pyright(config.root_dir) or global_pyright()
+            if not bin then
+                error(
+                    'pyright-langserver not found. Install one in the project '
+                        .. '(.venv) or globally (e.g. `pipx install pyright`).'
+                )
+            end
+            return vim.lsp.rpc.start({ bin, '--stdio' }, dispatchers, {
+                cwd = config.cmd_cwd,
+                env = config.cmd_env,
+                detached = config.detached,
+            })
+        end,
         before_init = function(_, config)
             -- Point pyright at the project's virtualenv, if there is one.
             local root = config.root_dir
