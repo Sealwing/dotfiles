@@ -1,5 +1,0 @@
-Functionality:
-    - Save last search in telescope
-    - In-file code suggestion (e.g. git message auto branch name suggestion)
-    - Full checks for pyright (project independant) ?
-
