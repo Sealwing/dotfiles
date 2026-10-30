@@ -217,46 +217,46 @@ end
 -- PACKAGE: neo-tree.nvim
 -- File explorer.
 -- ============================================================
-do
-    vim.pack.add({ { src = gh('nvim-neo-tree/neo-tree.nvim'), version = 'v3.x' } })
-
-    vim.fn.sign_define('DiagnosticSignError', { text = ' ', texthl = 'DiagnosticSignError' })
-    vim.fn.sign_define('DiagnosticSignWarn', { text = ' ', texthl = 'DiagnosticSignWarn' })
-    vim.fn.sign_define('DiagnosticSignInfo', { text = ' ', texthl = 'DiagnosticSignInfo' })
-    vim.fn.sign_define('DiagnosticSignHint', { text = '󰌵', texthl = 'DiagnosticSignHint' })
-
-    require('neo-tree').setup({
-        default_component_configs = {
-            name = {
-                trailing_slash = false,
-                use_git_status_colors = true,
-                highlight = 'NeoTreeFileName',
-            },
-            git_status = {
-                symbols = {
-                    -- Change type
-                    added = '✚',
-                    modified = '',
-                    deleted = '✖',
-                    renamed = '󰁕',
-                    -- Status type
-                    untracked = '',
-                    ignored = '',
-                    unstaged = '󰄱',
-                    staged = '',
-                    conflict = '',
-                },
-            },
-        },
-        -- NOTE: `window` is a top-level key, not a `default_component_configs`
-        -- one. In the old config it was nested, so the width was never applied.
-        window = {
-            width = 15,
-        },
-    })
-
-    vim.keymap.set('n', '<leader>N', '<cmd>Neotree<CR>', { silent = true, desc = 'Neo-tree: toggle' })
-end
+-- do
+--     vim.pack.add({ { src = gh('nvim-neo-tree/neo-tree.nvim'), version = 'v3.x' } })
+-- 
+--     vim.fn.sign_define('DiagnosticSignError', { text = ' ', texthl = 'DiagnosticSignError' })
+--     vim.fn.sign_define('DiagnosticSignWarn', { text = ' ', texthl = 'DiagnosticSignWarn' })
+--     vim.fn.sign_define('DiagnosticSignInfo', { text = ' ', texthl = 'DiagnosticSignInfo' })
+--     vim.fn.sign_define('DiagnosticSignHint', { text = '󰌵', texthl = 'DiagnosticSignHint' })
+-- 
+--     require('neo-tree').setup({
+--         default_component_configs = {
+--             name = {
+--                 trailing_slash = false,
+--                 use_git_status_colors = true,
+--                 highlight = 'NeoTreeFileName',
+--             },
+--             git_status = {
+--                 symbols = {
+--                     -- Change type
+--                     added = '✚',
+--                     modified = '',
+--                     deleted = '✖',
+--                     renamed = '󰁕',
+--                     -- Status type
+--                     untracked = '',
+--                     ignored = '',
+--                     unstaged = '󰄱',
+--                     staged = '',
+--                     conflict = '',
+--                 },
+--             },
+--         },
+--         -- NOTE: `window` is a top-level key, not a `default_component_configs`
+--         -- one. In the old config it was nested, so the width was never applied.
+--         window = {
+--             width = 15,
+--         },
+--     })
+-- 
+--     vim.keymap.set('n', '<leader>N', '<cmd>Neotree<CR>', { silent = true, desc = 'Neo-tree: toggle' })
+-- end
 
 -- ============================================================
 -- PACKAGE: workspaces.nvim
@@ -311,19 +311,20 @@ do
 
     local parsers = {
         'c',
-        'go',
-        'rust',
-        'python',
-        'javascript',
-        'html',
-        'lua',
-        'sql',
-        'nginx',
-        'yaml',
-        'json',
+        'clojure',
         'dockerfile',
         'elixir',
-        'clojure',
+        'go',
+        'html',
+        'javascript',
+        'json',
+        'lua',
+        'nginx',
+        'python',
+        'rust',
+        'sql',
+        'yaml',
+        'zig',
         -- Needed by render-markdown.nvim and for :help / config editing.
         'markdown',
         'markdown_inline',
@@ -647,7 +648,13 @@ do
         },
     })
 
-    vim.lsp.enable({ 'pyright', 'gopls' })
+    vim.lsp.config['zls'] = {
+        cmd = { 'zls' },
+        filetypes = { 'zig' },
+        root_markers = { 'build.zig' },
+    }
+
+    vim.lsp.enable({ 'pyright', 'gopls', 'zls' })
 end
 
 -- ============================================================
@@ -657,4 +664,89 @@ end
 do
     vim.pack.add({ gh('MeanderingProgrammer/render-markdown.nvim') })
     require('render-markdown').setup({})
+end
+
+-- ============================================================
+-- PACKAGE: dired.nvim
+-- ls-like FS navigation
+-- ============================================================
+do
+    vim.pack.add({ gh('x3ero0/dired.nvim') })
+    require('dired').setup({
+        path_separator = "/",
+        show_banner = false,
+        show_icons = false,
+        show_hidden = true,
+        show_dot_dirs = true,
+        show_colors = true,
+        keybinds = {
+            dired_enter = "<CR>",
+            dired_back = "<C-o>",
+            dired_up = "<C-p>",
+            dired_quit = "Q",
+            dired_rename = "R",
+            dired_copy = "C",
+            dired_move = "M",
+            dired_paste = "P",
+            dired_create = "A",
+            dired_delete = "D",
+            dired_mark = "<leader>mm",
+            dired_move_marked = "<leader>mM",
+            dired_delete_marked = "<leader>mD",
+            dired_copy_marked = "<leader>mC",
+        },
+    })
+
+    vim.keymap.set('n', '<leader>N', '<cmd>Dired<CR>', { silent = true, desc = 'Dired: toggle' })
+end
+
+
+-- ============================================================
+-- PACKAGE: langmapper.nvim
+-- Usable remapping for non-english bindings
+-- ============================================================
+do
+    vim.pack.add({ gh('Wansmer/langmapper.nvim') })
+    local function escape(str)
+      -- You need to escape these characters to work correctly
+      local escape_chars = [[;,."|\]]
+      return vim.fn.escape(str, escape_chars)
+    end
+
+    -- Recommended to use lua template string
+    local en = [[`qwertyuiop[]asdfghjkl;'zxcvbnm]]
+    local ru = [[ёйцукенгшщзхъфывапролджэячсмить]]
+    local en_shift = [[~QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>]]
+    local ru_shift = [[ËЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ]]
+
+    vim.opt.langmap = vim.fn.join({
+        -- | `to` should be first     | `from` should be second
+        escape(ru_shift) .. ';' .. escape(en_shift),
+        escape(ru) .. ';' .. escape(en),
+    }, ',')
+    require('langmapper').setup({})
+end
+
+-- ============================================================
+-- PACKAGE: zig.vim
+-- zig programming language
+-- ============================================================
+do
+    vim.pack.add({
+        'https://codeberg.org/ziglang/zig.vim',
+    })
+
+    -- don't show parse errors in a separate window
+    vim.g.zig_fmt_parse_errors = 0
+    -- disable format-on-save from `ziglang/zig.vim`
+    vim.g.zig_fmt_autosave = 0
+    -- enable  format-on-save from vim.lsp + ZLS
+    --
+    -- Formatting with ZLS matches `zig fmt`.
+    vim.api.nvim_create_autocmd('BufWritePre', {
+        pattern = { "*.zig", "*.zon" },
+        callback = function(ev)
+            vim.lsp.buf.format()
+        end
+    })
 end

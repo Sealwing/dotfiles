@@ -26,6 +26,10 @@
       "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
       "src": "https://github.com/sindrets/diffview.nvim"
     },
+    "dired.nvim": {
+      "rev": "7cf5ceb69a6bbea547f97397fa5310b1571eb03a",
+      "src": "https://github.com/x3ero0/dired.nvim"
+    },
     "fidget.nvim": {
       "rev": "9e0201673e08e997e7cf52afca5565c70bd117f3",
       "src": "https://github.com/j-hui/fidget.nvim"
@@ -37,6 +41,10 @@
     "guess-indent.nvim": {
       "rev": "84a4987ff36798c2fc1169cbaff67960aed9776f",
       "src": "https://github.com/NMAC427/guess-indent.nvim"
+    },
+    "langmapper.nvim": {
+      "rev": "49462fd9f4f33cf8cfbaa779ba07d3c0b255cc06",
+      "src": "https://github.com/Wansmer/langmapper.nvim"
     },
     "lualine.nvim": {
       "rev": "221ce6b2d999187044529f49da6554a92f740a96",
@@ -137,6 +145,10 @@
     "workspaces.nvim": {
       "rev": "55a1eb6f5b72e07ee8333898254e113e927180ca",
       "src": "https://github.com/natecraddock/workspaces.nvim"
+    },
+    "zig.vim": {
+      "rev": "4842ab8cb1b000a9acb0a06170d404d12a154918",
+      "src": "https://codeberg.org/ziglang/zig.vim"
     }
   }
 }

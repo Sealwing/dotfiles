@@ -19,3 +19,5 @@
 require('options')
 require('keymaps')
 require('plugins')
+-- wire all keys for non-english setup
+require('langmapper').automapping({ global = true, buffer = true })
