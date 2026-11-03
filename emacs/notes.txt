@@ -1,0 +1,4 @@
+# MacOS Automator (installed with --cask from homebrew)
+# need to install util-linux from brew first to have setsid
+export PATH=/opt/homebrew/bin:/opt/homebrew/opt/util-linux/bin:$PATH
+setsid -f -- emacsclient -c -a '' >/dev/null 2>&1

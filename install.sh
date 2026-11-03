@@ -24,6 +24,7 @@ TMUX_SOURCE="$DOTFILES_DIR/tmux/.tmux.conf"
 SKHD_SOURCE="$DOTFILES_DIR/skhd"
 AEROSPACE_SOURCE="$DOTFILES_DIR/aerospace/.aerospace.toml"
 CODEX_AGENTS_SOURCE="$DOTFILES_DIR/agents/AGENTS.md"
+EMACS_SOURCE="$DOTFILES_DIR/emacs"
 
 link_config () {
     local NAME=$1
@@ -47,5 +48,9 @@ link_config zsh "$ZSH_SOURCE" "$HOME/.zshrc"
 link_config tmux "$TMUX_SOURCE" "$HOME/.tmux.conf" 
 # link_config skhd "$SKHD_SOURCE" "$HOME/.config/skhd" 
 link_config aerospace "$AEROSPACE_SOURCE" "$HOME/.aerospace.toml"
-link_config codex "$CODEX_AGENTS_SOURCE" "$HOME/.codex/AGENTS.override.md"
-link_config claude "$CODEX_AGENTS_SOURCE" "$HOME/.claude/CLAUDE.md"
+#link_config codex "$CODEX_AGENTS_SOURCE" "$HOME/.codex/AGENTS.override.md"
+#link_config claude "$CODEX_AGENTS_SOURCE" "$HOME/.claude/CLAUDE.md"
+
+# not required if you add automation from notes
+#link_config emacs-daemon "$EMACS_SOURCE/macos-daemon.xml" "$HOME/Library/LaunchAgents/emacs.plist"
+link_config emacs-config "$EMACS_SOURCE/config" "$HOME/.emacs.d"

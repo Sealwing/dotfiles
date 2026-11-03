@@ -73,3 +73,5 @@ export PATH=$HOME'/.local/bin':$PATH
 # Qwen Code PATH block end
 
 source $HOME/.env
+export PATH=/opt/homebrew/opt/util-linux/bin:$PATH
+export PATH=/opt/homebrew/opt/util-linux/sbin:$PATH
