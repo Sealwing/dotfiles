@@ -5,13 +5,16 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-(global-display-line-numbers-mode 1)
 (setq display-line-numbers 'relative)
 
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file :no-error-if-file-is-missing)
 
+(setq make-backup-files nil)
+
 (setq project-mode-line 1)
+
+(add-to-list 'default-frame-alist '(undecorated . t))
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -46,11 +49,3 @@
 
 (use-package magit
   :ensure t)
-
-;; EVIL MODE
-
-(use-package evil
-  :ensure t
-  :config
-  (require 'evil)
-  (evil-mode 1))
