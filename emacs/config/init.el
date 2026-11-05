@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t -*-
+
 ;; GLOBAL
 
 (setq inhibit-startup-message t)
@@ -5,7 +7,9 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-(setq display-line-numbers 'relative)
+
+(setq display-line-numbers-type 'relative)
+(global-display-line-numbers-mode 1)
 
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file :no-error-if-file-is-missing)
@@ -37,7 +41,7 @@
     (doom-themes-enable-bold t)   ; if nil, bold is universally disabled
     (doom-themes-enable-italic t) ; if nil, italics is universally disabled
     :config
-    (load-theme 'doom-one t)
+    (load-theme 'doom-outrun-electric t)
     ;; Enable flashing mode-line on errors
     (doom-themes-visual-bell-config)
     ;; Enable custom neotree theme (nerd-icons must be installed!)
@@ -48,4 +52,9 @@
 ;; MAGIT
 
 (use-package magit
+  :ensure t)
+
+;; PROGRAMMING
+
+(use-package zig-mode
   :ensure t)

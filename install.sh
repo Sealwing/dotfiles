@@ -53,4 +53,5 @@ link_config aerospace "$AEROSPACE_SOURCE" "$HOME/.aerospace.toml"
 
 # not required if you add automation from notes
 #link_config emacs-daemon "$EMACS_SOURCE/macos-daemon.xml" "$HOME/Library/LaunchAgents/emacs.plist"
-link_config emacs-config "$EMACS_SOURCE/config" "$HOME/.emacs.d"
+mkdir "$HOME/.emacs.d"
+link_config emacs-config "$EMACS_SOURCE/config/init.el" "$HOME/.emacs.d/init.el"
