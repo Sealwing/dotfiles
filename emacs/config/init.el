@@ -3,6 +3,7 @@
 ;; GLOBAL
 
 (setq inhibit-startup-message t)
+(setq warning-minimum-level :error)
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -21,18 +22,6 @@
 
 (add-to-list 'default-frame-alist '(undecorated . t))
 
-; keys
-(keymap-global-set "C-}" 'outline-next-heading)
-(keymap-global-set "C-{" 'outline-previous-heading)
-; buffer
-(keymap-global-set "C-c b b" 'consult-buffer)
-(keymap-global-set "C-c b h" 'split-window-horizontally)
-(keymap-global-set "C-c b v" 'split-window-vertically)
-(keymap-global-set "C-c b c" 'delete-window)
-(keymap-global-set "C-c h" 'windmove-left)
-(keymap-global-set "C-c l" 'windmove-right)
-(keymap-global-set "C-c k" 'windmove-up)
-(keymap-global-set "C-c j" 'windmove-down)
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -85,13 +74,21 @@
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
-; languages
+					; languages
 
-(use-package zig-mode)
-
+(use-package zig-mode
+  :ensure t
+  :hook (
+	 ; on file open configure outline, since zig mode doesn't do that
+	 (zig-mode . (lambda ()
+		       (setq-local
+			outline-regexp
+			"\\(fn\\|pub\\|\\|inline\\|const\\|var\\|test\\) ")))))
+  
 (use-package lsp-mode
+  :ensure t
   :init
-  (setq lsp-keymap-prefix "C-c l")
+  (setq lsp-keymap-prefix "C-c i")
   (setq lsp-enable-symbol-highlighting nil)
   (setq lsp-enable-file-watchers nil)
   :hook (
@@ -101,24 +98,22 @@
   :commands (lsp lsp-deferred))
 
 (use-package lsp-ui
+  :ensure t
   :config
   (setq lsp-ui-sideline-show-diagnostics t)
   :commands lsp-ui-mode)
 
 (use-package lsp-pyright
+  :ensure t
   :custom (lsp-pyright-langserver-command "pyright")
   :hook (python-mode . (lambda ()
 			 (require 'lsp-pyright)
 			 (lsp-deferred))))
 
-(use-package lsp-zig
-  :hook (zig-mode . (lambda ()
-		      (require 'lsp-zig)
-		      (lsp-deferred))))
-
 ; navigation/search
 
 (use-package consult
+  :ensure t
   :bind (
 	 ("C-c M-x" . consult-mode-command)
 	 ("C-x b" . consult-buffer)
@@ -134,12 +129,13 @@
 
 ; Completion window setup
 (use-package vertico
+  :ensure t
   :custom
   (vertico-count 7)
   (vertico-scroll-margin 0)
   (vertico-resize t)
   (vertico-cycle t)
-  :init
+  :config
   (vertico-mode))
 
 (use-package corfu
@@ -158,6 +154,7 @@
   )
 
 (use-package orderless
+  :ensure t
   :custom
   (completion-styles '(basic flex orderless))
   (completion-category-overrides '((file (styles partial-completion))))
@@ -172,3 +169,26 @@
   (text-mode-ispell-word-completion nil)
   (enable-recursive-minibuffers t)
   (read-extended-command-predicate #'command-completion-default-include-p))
+
+;; KEYMAPS
+					; outline
+(keymap-global-set "C-c C-n" 'outline-next-heading)
+(keymap-global-set "C-c C-p" 'outline-previous-heading)
+(keymap-global-set "C-}" 'outline-next-heading) ; convenient for denser files
+(keymap-global-set "C-{" 'outline-previous-heading)
+(keymap-global-set "C-c C-o c" 'outline-hide-entry)
+(keymap-global-set "C-c C-o o" 'outline-show-entry)
+(keymap-global-set "C-c C-o h" 'outline-hide-body)
+(keymap-global-set "C-c C-o s" 'outline-show-all)
+					; window/buffer
+(keymap-global-set "C-c b b" 'consult-buffer)
+(keymap-global-set "C-c b h" 'split-window-below)
+(keymap-global-set "C-c b v" 'split-window-right)
+(keymap-global-set "C-c b c" 'delete-window)
+(keymap-global-set "C-c h" 'windmove-left)
+(keymap-global-set "C-c l" 'windmove-right)
+(keymap-global-set "C-c k" 'windmove-up)
+(keymap-global-set "C-c j" 'windmove-down)
+					; compilie/terminal
+(keymap-global-set "C-c C-c" 'compile)
+(keymap-global-set "C-c C-z" 'term)
