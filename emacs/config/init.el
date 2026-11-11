@@ -8,6 +8,7 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+(column-number-mode 1)
 
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode 1)
@@ -34,24 +35,16 @@
     'default nil
     :height 145
     :width  'expanded
-    :weight 'light
+    :weight 'normal
     :family "Lilex Nerd Font Mono")
 
-(use-package doom-themes
-    :ensure t
-    :custom
-    ;; Global settings (defaults)
-    (doom-themes-enable-bold t)   ; if nil, bold is universally disabled
-    (doom-themes-enable-italic t) ; if nil, italics is universally disabled
-    :config
-    (load-theme 'doom-nord-aurora t)
-    ;; Enable flashing mode-line on errors
-    (doom-themes-visual-bell-config)
-    ;; Enable custom neotree theme (nerd-icons must be installed!)
-    (doom-themes-neotree-config)
-    ;; Corrects (and improves) org-mode's native fontification.
-    (doom-themes-org-config))
-
+(use-package catppuccin-theme
+  :ensure t
+  :init
+  (setq catppuccin-flavor 'macchiato) ;; or 'frappe, 'macchiato, or 'mocha
+  :config
+  (load-theme 'catppuccin-theme))
+  
 ;; PACKAGES
 
 ; PATH variables
@@ -109,6 +102,17 @@
   :hook (python-mode . (lambda ()
 			 (require 'lsp-pyright)
 			 (lsp-deferred))))
+
+;; (use-package dap-mode
+;;   :ensure t
+;;   :config
+;;   (require 'dap-mode)
+;;   (setq dap-auto-configure-features '(sessions locals controls tooltip))
+;;   (require 'dap-python)
+;;   ;; if you installed debugpy, you need to set this
+;;   ;; https://github.com/emacs-lsp/dap-mode/issues/306
+;;   (setq dap-python-debugger 'debugpy)
+;;   )
 
 ; navigation/search
 
@@ -169,6 +173,15 @@
   (text-mode-ispell-word-completion nil)
   (enable-recursive-minibuffers t)
   (read-extended-command-predicate #'command-completion-default-include-p))
+
+(add-to-list 'compilation-error-regexp-alist-alist
+	     '(pyright-cmd .
+	       ("^\s*\\(/.*\\):\\([0-9]+\\):\\([0-9]+\\) - error" 1 2 3 )
+
+	       )
+	     )
+
+(add-to-list 'compilation-error-regexp-alist 'pyright-cmd)
 
 ;; KEYMAPS
 					; outline
