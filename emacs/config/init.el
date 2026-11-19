@@ -43,7 +43,7 @@
   :init
   (setq catppuccin-flavor 'macchiato) ;; or 'frappe, 'macchiato, or 'mocha
   :config
-  (load-theme 'catppuccin-theme))
+  (load-theme 'catppuccin :no-confirm))
   
 ;; PACKAGES
 
@@ -71,12 +71,13 @@
 
 (use-package zig-mode
   :ensure t
-  :hook (
-	 ; on file open configure outline, since zig mode doesn't do that
-	 (zig-mode . (lambda ()
-		       (setq-local
-			outline-regexp
-			"\\(fn\\|pub\\|\\|inline\\|const\\|var\\|test\\) ")))))
+  ;; :hook (
+  ;; 	 ; on file open configure outline, since zig mode doesn't do that
+  ;; 	 (zig-mode . (lambda ()
+  ;; 		       (setq-local
+  ;; 			outline-regexp
+  ;; 			"\\(fn\\|pub\\|\\|inline\\|const\\|var\\|test\\) "))))
+  )
   
 (use-package lsp-mode
   :ensure t
@@ -173,6 +174,9 @@
   (text-mode-ispell-word-completion nil)
   (enable-recursive-minibuffers t)
   (read-extended-command-predicate #'command-completion-default-include-p))
+
+(require 'ansi-color)
+(add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
 
 (add-to-list 'compilation-error-regexp-alist-alist
 	     '(pyright-cmd .
