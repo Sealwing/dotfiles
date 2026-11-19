@@ -185,6 +185,13 @@
 	       )
 	     )
 
+(add-to-list 'compilation-error-regexp-alist-alist
+	     '(ruff-cmd .
+	       ("--> \\(.*\\):\\([0-9]+\\):\\([0-9]+\\)" 1 2 3 )
+	       )
+	     )
+
+(add-to-list 'compilation-error-regexp-alist 'ruff-cmd)
 (add-to-list 'compilation-error-regexp-alist 'pyright-cmd)
 
 ;; KEYMAPS
