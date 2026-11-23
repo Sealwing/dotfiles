@@ -71,51 +71,40 @@
 
 (use-package zig-mode
   :ensure t
-  ;; :hook (
-  ;; 	 ; on file open configure outline, since zig mode doesn't do that
-  ;; 	 (zig-mode . (lambda ()
-  ;; 		       (setq-local
-  ;; 			outline-regexp
-  ;; 			"\\(fn\\|pub\\|\\|inline\\|const\\|var\\|test\\) "))))
+  :hook (
+	 ; on file open configure outline, since zig mode doesn't do that
+	 (zig-mode . (lambda ()
+		       (setq-local
+			outline-regexp
+			"\\(fn \\|pub \\|inline \\|const \\|test \\)"))))
   )
   
-(use-package lsp-mode
-  :ensure t
-  :init
-  (setq lsp-keymap-prefix "C-c i")
-  (setq lsp-enable-symbol-highlighting nil)
-  (setq lsp-enable-file-watchers nil)
-  :hook (
-	 (lsp-mode . (lsp-enable-which-key-integration)))
-  :config
-  (setq lsp-idle-delay 1)
-  :commands (lsp lsp-deferred))
+;; (use-package lsp-mode
+;;   :ensure t
+;;   :init
+;;   (setq lsp-keymap-prefix "C-c i")
+;;   (setq lsp-enable-symbol-highlighting nil)
+;;   (setq lsp-enable-file-watchers nil)
+;;   :hook (
+;; 	 (lsp-mode . (lsp-enable-which-key-integration)))
+;;   :config
+;;   (setq lsp-idle-delay 1)
+;;   :commands (lsp lsp-deferred))
 
-(use-package lsp-ui
-  :ensure t
-  :config
-  (setq lsp-ui-sideline-show-diagnostics t)
-  :commands lsp-ui-mode)
-
-(use-package lsp-pyright
-  :ensure t
-  :custom (lsp-pyright-langserver-command "pyright")
-  :hook (python-mode . (lambda ()
-			 (require 'lsp-pyright)
-			 (lsp-deferred))))
-
-;; (use-package dap-mode
+;; (use-package lsp-ui
 ;;   :ensure t
 ;;   :config
-;;   (require 'dap-mode)
-;;   (setq dap-auto-configure-features '(sessions locals controls tooltip))
-;;   (require 'dap-python)
-;;   ;; if you installed debugpy, you need to set this
-;;   ;; https://github.com/emacs-lsp/dap-mode/issues/306
-;;   (setq dap-python-debugger 'debugpy)
-;;   )
+;;   (setq lsp-ui-sideline-show-diagnostics t)
+;;   :commands lsp-ui-mode)
 
-; navigation/search
+;; (use-package lsp-pyright
+;;   :ensure t
+;;   :custom (lsp-pyright-langserver-command "pyright")
+;;   :hook (python-mode . (lambda ()
+;; 			 (require 'lsp-pyright)
+;; 			 (lsp-deferred))))
+
+					; navigation/search
 
 (use-package consult
   :ensure t
@@ -178,6 +167,7 @@
 (require 'ansi-color)
 (add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
 
+(require 'compile)
 (add-to-list 'compilation-error-regexp-alist-alist
 	     '(pyright-cmd .
 	       ("^\s*\\(/.*\\):\\([0-9]+\\):\\([0-9]+\\) - error" 1 2 3 )
